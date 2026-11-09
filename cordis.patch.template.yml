@@ -1,0 +1,28 @@
+# TEMPLATE. Do not edit: `node scripts/prepare.mjs` writes ./cordis.patch.yml with
+# this machine's absolute paths. Values below are placeholders, not installable.
+- insert:
+    - id: preset-host-admission
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: host-admission
+        name: 本机任务准入 / Host Admission
+        description: 原生文件工具 + 按预计增量申报预算的本地准入开发任务。
+        plugins:
+          - id: agent-instructions
+            name: '@deepseek-ai/dsh-agent-instructions'
+            config:
+              maxBytes: 65536
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: host-run
+            # Absolute file URL of THIS package's index.mjs after DSH has installed it.
+            name: __PLUGIN_ENTRY__
+            config:
+              # Your local admission host binary implementing docs/host-contract.md.
+              hostCommand: __HOST_COMMAND__
+              # Directory you own, where one JSON evidence file per call is appended.
+              artifactRoot: __ARTIFACT_ROOT__

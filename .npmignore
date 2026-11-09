@@ -1,0 +1,8 @@
+# Never ship the machine-specific patch or local evidence
+cordis.patch.yml
+calls/
+artifacts/
+*.tgz
+node_modules/
+.DS_Store
+*.log

@@ -1,0 +1,43 @@
+{
+  "name": "dsh-plugin-host-admission",
+  "version": "0.1.0-preview",
+  "description": "Coordinated local task execution for DSH: multiple agents declare budgets, get hard deadlines, and receive accountable settlement instead of fighting over the machine.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Carlos Woo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CarlosWoo6319/dsh-plugin-host-admission.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./index.mjs",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.mjs",
+    "cordis.patch.template.yml",
+    "locale/*.json",
+    "icon.svg",
+    "scripts/*.mjs",
+    "docs/*.md",
+    "demo/*.mjs",
+    "demo/README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "demo": "node demo/run-demo.mjs",
+    "demo:adapter": "node demo/run-adapter.mjs",
+    "patch": "node scripts/prepare.mjs",
+    "prepack": "node scripts/guard-pack.mjs"
+  }
+}
