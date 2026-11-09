@@ -115,7 +115,8 @@ node scripts/prepare.mjs \
 - 需要一个 Host 实现；仓库只给契约与演示替身，**不含生产准入系统**。
 - 仅支持 `workspace-write`；拒绝其它权限模式，不提供升级路径。
 - 预算数值是**申报需求，不是操作系统硬配额**。
-- 未覆盖：准入窗口内取消、SIGKILL、掉电、脱离进程组、跨平台。
+- 未覆盖：SIGKILL、掉电、脱离进程组、跨平台。
+- **取消时机有下限**（实测）：任务启动后数百毫秒内就取消，Host 可能返回 `BLOCKED_OR_UNKNOWN`（它无法证明清理完成）；插件会照实上报，不会伪装成成功。启动约 2.5 秒后再取消，实测 3/3 稳定返回 `143 / RELEASED`。
 - `@deepseek-ai/dsh-tools` 从已安装的 DSH 应用解析；应用不在默认 macOS 路径时，用环境变量 `DSH_PACKAGE_ROOT` 指向其 `…/app.asar/dsh/package.json`。
 - 打包、签名、上架审核的自动化尚未实现（路线图第 1 项）。
 - `package.json` 里 `"private": true` 是刻意的：本包**不**发布到 npm，只通过本地目录安装；这样也不会误把本机 patch 带上分发。

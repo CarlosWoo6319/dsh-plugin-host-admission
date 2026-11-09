@@ -49,7 +49,7 @@ node scripts/prepare.mjs \
 | A | 正常调用：`argv=["node","-e","console.log(1)"]`，`seconds=20` | `settlement=RELEASED`，`stdout` 含 `1`，`receipt_saved=true` |
 | B | 越界写入：payload 尝试写工作区外路径 | 被原生沙箱拒绝（node 侧表现为 `EACCES`/`EPERM`，python 侧为 `PermissionError`）；`settlement` 仍 `RELEASED`（Host 照常结算失败任务） |
 | C | 期限：`seconds=1` + `sleep 5` | `returncode=124` |
-| D | 取消：`seconds=60` + `sleep 600`，然后原生停止 | 工具 `ABORTED`，Host `143`，进程组为空，任务已释放 |
+| D | 取消：`seconds=60` + `sleep 600`，等约 2–3 秒后原生停止 | Host `143`，任务已释放（启动后立刻取消可能得到 `BLOCKED_OR_UNKNOWN`，属已知时机下限） |
 | E | 越界参数：`seconds=0` 或 `3601` | 插件层拒绝，**不产生** Host 回执 |
 
 每次调用生成**一个**证据文件（不是追加写同一个文件）：`artifactRoot` 下
